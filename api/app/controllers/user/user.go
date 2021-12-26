@@ -200,7 +200,7 @@ func PullUserCart(c *gin.Context) {
 
 	change := bson.M{"$pull": bson.M{"cartlist": bson.M{"uuid": input.Uuid}}}
 
-	result, err := collection.UpdateMany(
+	result, err := collection.UpdateOne(
 		configs.Ctx,
 		bson.M{"_id": id},
 		change,

@@ -22,6 +22,7 @@ func InsertOrder(c *gin.Context) {
 		})
 		return
 	}
+
 	id, _ := primitive.ObjectIDFromHex(input.UserId)
 	order := models.Order{
 		ID:            primitive.NewObjectID(),

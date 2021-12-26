@@ -1,5 +1,7 @@
-FROM golang:1.17-alpine
+FROM golang:alpine
+
 WORKDIR /go/src/app
-EXPOSE 8080
+EXPOSE 7000
 
 RUN apk add bash
+RUN go get github.com/cosmtrek/air

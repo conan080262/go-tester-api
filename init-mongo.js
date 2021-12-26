@@ -11,8 +11,4 @@ db.createUser(
     }
 )
 
-db.staffs.insert( {
-        item: "card", 
-        qty: 15 
-    } 
-)
+
