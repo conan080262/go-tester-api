@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+
+  mongo-backend-tester:
+      image: mongo
+      restart: always
+      ports:
+        - "27018:27017"
+      environment:
+          - MONGO_INITDB_ROOT_USERNAME=admin
+          - MONGO_INITDB_ROOT_PASSWORD=pass
+      volumes:
+        - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+        - ./db:/data/db
+
+  api-backend-tester:
+    build: ./api/app
+    ports:
+      - "3001:8080"
+    volumes:
+      - ./api/app/:/go/src/app
+    command: bash -c "go mod download && go build -ldflags '-s -w' ./main.go && ./main"
+    depends_on:
+      - mongo-backend-tester
+  
