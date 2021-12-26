@@ -1,0 +1,916 @@
+{
+	"info": {
+		"_postman_id": "27b848fd-1032-43e3-be77-f99baa488d2e",
+		"name": "go-backend-tester",
+		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@gmail.com\",\r\n    \"nickname\": \"USER\",\r\n    \"password\":  \"pass\",\r\n    \"gender\": \"ชาย\",\r\n    \"birthdate\": \"12-12-1996\",\r\n    \"phone\": \"0825421057\"\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/users/register",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@gmail.com\",\r\n    \"password\":  \"pass\"\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/users/login",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add to user addressbook - AUTH user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2ODkwMzksImlkIjoiNjFjODRhNmMwNjU4ZTEzYzNjYzVlOThiIiwicm9sZSI6IjExMTEiLCJ1c2VyX2lkIjoidXNlckBnbWFpbC5jb20ifQ.CfFafljOzj5A5zZL8vtXLSc6YeJB6vu73l9ngFdzuxQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userid\": \"61c84a6c0658e13c3cc5e98b\",\r\n    \"addressbook\": {\r\n        \"name\": \"นางวีน ประมา\",\r\n        \"phonerecieve\":  \"0894564845\",\r\n        \"provine\":  \"นครรราชสีมา\",\r\n        \"district\":  \"เมือง\",\r\n        \"sub_district\":  \"หนองกระทุ่ม\",\r\n        \"zipcode\":  \"70000\",\r\n        \"addtessnum\":  \"30/30\",\r\n        \"comment\":  \"บ้านอยู่สุดซอย\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/users/auth/pushaddbook",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"users",
+								"auth",
+								"pushaddbook"
+							]
+						},
+						"description": "API สำหรับเพิ่มสมุดที่อยู่\r\n\r\nuserid นำมาจากตาราง users คีย์ id ได้หลังจากการ login"
+					},
+					"response": []
+				},
+				{
+					"name": "pull user addressbook - AUTH user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2ODkwMzksImlkIjoiNjFjODRhNmMwNjU4ZTEzYzNjYzVlOThiIiwicm9sZSI6IjExMTEiLCJ1c2VyX2lkIjoidXNlckBnbWFpbC5jb20ifQ.CfFafljOzj5A5zZL8vtXLSc6YeJB6vu73l9ngFdzuxQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userid\": \"61c7a9d8cace2c787f7712d1\",\r\n    \"uuid\": \"125553sa4\"\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/users/auth/pulladdbook",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"users",
+								"auth",
+								"pulladdbook"
+							]
+						},
+						"description": "API สำหรับลบสมุดที่อยู่\r\n\r\nuserid นำมาจากตาราง users คีย์ id ได้หลังจากการ login\r\n\r\nีีuuid เป็น sub id ของ addressbook ได้หลังจากการ login (แต่ต้องเพิ่มที่อยู่ก่อนโดยใช้ api user->add to user addressbook - AUTH user)"
+					},
+					"response": []
+				},
+				{
+					"name": "pull user cart - AUTH user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2ODkwMzksImlkIjoiNjFjODRhNmMwNjU4ZTEzYzNjYzVlOThiIiwicm9sZSI6IjExMTEiLCJ1c2VyX2lkIjoidXNlckBnbWFpbC5jb20ifQ.CfFafljOzj5A5zZL8vtXLSc6YeJB6vu73l9ngFdzuxQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userid\": \"61c7a9d8cace2c787f7712d1\",\r\n    \"uuid\": \"a2f78829-57b3-4708-805d-51cc6b534b17\"\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/users/auth/pullcart",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"users",
+								"auth",
+								"pullcart"
+							]
+						},
+						"description": "API สำหรับลบ สินค้าในรถเข็น\r\n\r\nuserid นำมาจากตาราง users คีย์ id ได้หลังจากการ login \r\n\r\nีีuuid เป็น sub id ของ cartlist ได้หลังจากการ login (แต่ต้องเพิ่มสินค้าก่อนโดยใช้ api product->add to user cart)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Staff",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2MjAzMDYsImlkIjoiNjFjNzM5MzJmMWEzNjYzYjJhZjI4NTBiIiwicm9sZSI6IjEiLCJ1c2VyX2lkIjoiYWRtaW4ifQ.7G6Co_dEz0iBt0Ss1qYBWzr2REQgc_QZ9hOvfjn0eTo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"สตาฟ\",\r\n    \"role\": \"11\",\r\n    \"email\":  \"staff@gmail.com\",\r\n    \"phone\":  \"0925421064\",\r\n    \"password\": \"pass\",\r\n    \"idcard\": \"1305501222111\",\r\n    \"gender\": \"male\",\r\n    \"birthdate\": \"12-13-1996\"\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/staffs/register",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"staffs",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"staff@gmail.com\",\r\n    \"password\":  \"pass\"\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/staffs/login",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"staffs",
+								"login"
+							]
+						},
+						"description": "api ใช้ ในการเข้าสู่ระบบของพนักงาน"
+					},
+					"response": []
+				},
+				{
+					"name": "uploadfile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Non/Desktop/301 (2).png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/staffs/uploadfile",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"staffs",
+								"uploadfile"
+							]
+						},
+						"description": "api ใช้ในการ upload file หลังจากนั้น ให้นำ path ไปโยนใส่ ฟิลที่ต้องการแสดงรูป"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "insert - AUTH staff",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2ODk5ODYsImlkIjoiNjFjODRlMmEwNjU4ZTEzYzNjYzVlOThlIiwicm9sZSI6IjExIiwidXNlcl9pZCI6InN0YWZmQGdtYWlsLmNvbSJ9.smpTOGSmJq4d7O0RH5wzWXZuiOButhR3P10mRabFkvs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"เสื้อยืดลายธรรมดา\",\r\n    \"category\":  \"plain_color\",\r\n    \"gender\":  \"ชาย\",\r\n    \"allsize\":  [{\r\n        \"size\": \"s\",\r\n        \"price\":50\r\n    },{\r\n        \"size\": \"m\",\r\n        \"price\":100\r\n    },{\r\n        \"size\": \"l\",\r\n        \"price\":150\r\n    }],\r\n    \"comment\":  \"เป็นเสื้อยืดที่ทนทาน ผลิตจากวัสดุชั้นดี\",\r\n    \"detail\":  [{\r\n        \"size\": \"s\",\r\n        \"color\": \"BLUE\",\r\n        \"urlimgmain\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n        \"urlimgsub\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n        \"qty\":500\r\n    },{\r\n        \"size\": \"m\",\r\n        \"color\": \"BLACK\",\r\n        \"urlimgmain\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n        \"urlimgsub\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n        \"qty\":500\r\n    }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/products/auth/insert",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"products",
+								"auth",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch and filter and sort",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2Mjc4MjQsImlkIjoiNjFjNzM5MzJmMWEzNjYzYjJhZjI4NTBiIiwicm9sZSI6IjEiLCJ1c2VyX2lkIjoiYWRtaW4ifQ.wcIk2cVdjdEjROBMelHdSmM9K9K4_XuduDNBK9ighRo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/products/fetchdata?gender=ชาย&category=plain_color&size=s&pagelimit=2&pageindex=7&sortkey=_id&sort=-1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"products",
+								"fetchdata"
+							],
+							"query": [
+								{
+									"key": "gender",
+									"value": "ชาย",
+									"description": "ชาย หญิง"
+								},
+								{
+									"key": "category",
+									"value": "plain_color",
+									"description": "plain_color pattern figure"
+								},
+								{
+									"key": "size",
+									"value": "s",
+									"description": "ไซส์ตัวพิมพ์เล็ก"
+								},
+								{
+									"key": "pagelimit",
+									"value": "2",
+									"description": "จำนวนทีแสดงผลตอ 1 หน้า"
+								},
+								{
+									"key": "pageindex",
+									"value": "7",
+									"description": "อยูหน้าที่เทาไร"
+								},
+								{
+									"key": "sortkey",
+									"value": "_id",
+									"description": "สามารถ ดู key ใน DB แล้ว sort ได้"
+								},
+								{
+									"key": "sort",
+									"value": "-1",
+									"description": "-1 เรียงจากมากไปน้อย 1 เรียงจากน้อยไปมาก"
+								}
+							]
+						},
+						"description": "api แสดงสินค้าในร้านทั้งหมด ปรับตาม paremeter ได้"
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2Mjc4MjQsImlkIjoiNjFjNzM5MzJmMWEzNjYzYjJhZjI4NTBiIiwicm9sZSI6IjEiLCJ1c2VyX2lkIjoiYWRtaW4ifQ.wcIk2cVdjdEjROBMelHdSmM9K9K4_XuduDNBK9ighRo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/products/get?id=61c8508d0658e13c3cc5e99c",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"products",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "61c8508d0658e13c3cc5e99c",
+									"description": "id ของ สินค้า"
+								},
+								{
+									"key": "gender",
+									"value": "ชาย",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "plain_color",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "x",
+									"disabled": true
+								},
+								{
+									"key": "pagelimit",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "pageindex",
+									"value": "7",
+									"disabled": true
+								},
+								{
+									"key": "sortkey",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add to user cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userid\": \"61c84a6c0658e13c3cc5e98b\",\r\n    \"cart\": {\r\n        \"productid\": \"61c8508d0658e13c3cc5e99c\",\r\n        \"name\":  \"เสื้อยืดลายธรรมดา\",\r\n        \"sku\":  \"58be8d0f-dd99-4cd0-8aae-8f2fdb43b839-เสื้อยืดลายธรรมดา-s-BLUE\",\r\n        \"size\":  \"s\",\r\n        \"qty\":  10,\r\n        \"price\":  50,\r\n        \"pricetotal\":  500,\r\n        \"color\":  \"BLUE\",\r\n        \"category\":  \"plain_color\",\r\n        \"gender\":  \"ชาย\",\r\n        \"comment\":  \"เป็นเสื้อยืดที่ทนทาน ผลิตจากวัสดุชั้นดี\",\r\n        \"imgmain\":  \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n        \"imgsub\":  \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/products/addtocart",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"products",
+								"addtocart"
+							]
+						},
+						"description": "เพิมสินค้า ลง ใน ตะกร้า ได้ค่าจาก api product->get"
+					},
+					"response": []
+				},
+				{
+					"name": "Update  - AUTH staff",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2ODk5ODYsImlkIjoiNjFjODRlMmEwNjU4ZTEzYzNjYzVlOThlIiwicm9sZSI6IjExIiwidXNlcl9pZCI6InN0YWZmQGdtYWlsLmNvbSJ9.smpTOGSmJq4d7O0RH5wzWXZuiOButhR3P10mRabFkvs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idupdate\" : \"61c8508d0658e13c3cc5e99c\",\r\n    \"name\": \"เสื้อยืดแก้ไข\",\r\n    \"category\":  \"plain_color\",\r\n    \"gender\":  \"ชาย\",\r\n    \"allsize\":  [{\r\n        \"size\": \"s\",\r\n        \"price\":50\r\n    },{\r\n        \"size\": \"m\",\r\n        \"price\":100\r\n    },{\r\n        \"size\": \"l\",\r\n        \"price\":150\r\n    }],\r\n    \"comment\":  \"เสื้อผ้าสีสันสดใส\",\r\n    \"detail\":  [{\r\n        \"size\": \"s\",\r\n        \"color\": \"BLUE\",\r\n        \"urlimgmain\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n        \"urlimgsub\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n        \"qty\":5000\r\n    },{\r\n        \"size\": \"m\",\r\n        \"color\": \"BLUE\",\r\n        \"urlimgmain\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n        \"urlimgsub\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n        \"qty\":5000\r\n    },{\r\n        \"size\": \"l\",\r\n        \"color\": \"BLUE\",\r\n        \"urlimgmain\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n        \"urlimgsub\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n        \"qty\":5000\r\n    }]\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/products/auth/update",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"products",
+								"auth",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  - AUTH staff",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2ODk5ODYsImlkIjoiNjFjODRlMmEwNjU4ZTEzYzNjYzVlOThlIiwicm9sZSI6IjExIiwidXNlcl9pZCI6InN0YWZmQGdtYWlsLmNvbSJ9.smpTOGSmJq4d7O0RH5wzWXZuiOButhR3P10mRabFkvs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : \"61c8508d0658e13c3cc5e99c\"\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/products/auth/delete",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"products",
+								"auth",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "1.user_insert order AUTH user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2ODkwMzksImlkIjoiNjFjODRhNmMwNjU4ZTEzYzNjYzVlOThiIiwicm9sZSI6IjExMTEiLCJ1c2VyX2lkIjoidXNlckBnbWFpbC5jb20ifQ.CfFafljOzj5A5zZL8vtXLSc6YeJB6vu73l9ngFdzuxQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userphone\": \"0825421057\",\r\n    \"userid\": \"61c84a6c0658e13c3cc5e98b\",\r\n    \"useremail\": \"user@gmail.com\",\r\n    \"orderaddress\":  {\r\n        \"uuid\": \"3be1ba76-1b39-43ca-af57-6fa15536641c\",\r\n        \"name\": \"นางวีน ประมา\",\r\n        \"phonerecieve\": \"0894564845\",\r\n        \"provine\":  \"ราชบุรี\",\r\n        \"district\":  \"เมื่อง\",\r\n        \"sub_district\": \"โพธาราม\",\r\n        \"zipcode\": \"70120\",\r\n        \"addtessnum\": \"2/30\",\r\n        \"comment\": \"ที่บ้านหมาดุ ให้ระวังในการมาส่งสินค้า\"\r\n    },\r\n    \"productlist\":  [\r\n        {\r\n            \"productid\": \"61c8508d0658e13c3cc5e99c\",\r\n            \"name\": \"เสื้อยืดลายธรรมดา\",\r\n            \"sku\":  \"58be8d0f-dd99-4cd0-8aae-8f2fdb43b839-เสื้อยืดลายธรรมดา-s-BLUE\",\r\n            \"size\":  \"s\",\r\n            \"price\": 50,\r\n            \"qty\": 10,\r\n            \"pricetotal\": 500,\r\n            \"color\": \"BLACK\",\r\n            \"category\": \"plain_color\",\r\n            \"gender\": \"ชาย\",\r\n            \"comment\": \"เป็นเสื้อยืดที่ทนทาน ผลิตจากวัสดุชั้นดี\",\r\n            \"imgmain\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n            \"imgsub\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\"\r\n        },\r\n        {\r\n            \"productid\": \"61c8508d0658e13c3cc5e99c\",\r\n            \"name\": \"เสื้อยืดลายธรรมดา\",\r\n            \"sku\":  \"58be8d0f-dd99-4cd0-8aae-8f2fdb43b839-เสื้อยืดลายธรรมดา-s-BLUE\",\r\n            \"size\":  \"s\",\r\n            \"price\": 50,\r\n            \"qty\": 10,\r\n            \"pricetotal\": 500,\r\n            \"color\": \"BLUE\",\r\n            \"category\": \"plain_color\",\r\n            \"gender\": \"ชาย\",\r\n            \"comment\": \"เป็นเสื้อยืดที่ทนทาน ผลิตจากวัสดุชั้นดี\",\r\n            \"imgmain\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\",\r\n            \"imgsub\": \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\"\r\n        }\r\n    ],\r\n    \"pricedetail\": {\r\n            \"price\": 1000,\r\n            \"vat\": 70,\r\n            \"carry\":  30,\r\n            \"totalprice\":  1100\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/orders/auth/insert",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"orders",
+								"auth",
+								"insert"
+							]
+						},
+						"description": "สร้างรายการสินค้า เมือเริมสร้างสถานะจะเป็น รอชำระเงิน"
+					},
+					"response": []
+				},
+				{
+					"name": "2.user_add payment AUTH user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2ODkwMzksImlkIjoiNjFjODRhNmMwNjU4ZTEzYzNjYzVlOThiIiwicm9sZSI6IjExMTEiLCJ1c2VyX2lkIjoidXNlckBnbWFpbC5jb20ifQ.CfFafljOzj5A5zZL8vtXLSc6YeJB6vu73l9ngFdzuxQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderid\": \"61c856dc0658e13c3cc5e9a9\",\r\n    \"payment\":  {\r\n        \"date\": \"12-12-2020\",\r\n        \"bank\": \"กรุงไทย\",\r\n        \"pricetotal\": 1000,\r\n        \"pricepaid\":  1000,\r\n        \"name\":  \"นนทวัฒน์ ป้อมสนาม\",\r\n        \"accnum\":  \"7360351102\",\r\n        \"imgbill\":  \"/go/api/v1/public/images/IMG_20211209_064042_843.jpg\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/orders/auth/addpayment",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"orders",
+								"auth",
+								"addpayment"
+							]
+						},
+						"description": "หลังจากชำระเงินค่าสินค้า สถานะจะเป็น ชำระเงินแล้ว\r\nนำ ไอดีของ user_insert order ใช้"
+					},
+					"response": []
+				},
+				{
+					"name": "3.staff_carry AUTH staff",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2ODk5ODYsImlkIjoiNjFjODRlMmEwNjU4ZTEzYzNjYzVlOThlIiwicm9sZSI6IjExIiwidXNlcl9pZCI6InN0YWZmQGdtYWlsLmNvbSJ9.smpTOGSmJq4d7O0RH5wzWXZuiOButhR3P10mRabFkvs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderid\": \"61c856dc0658e13c3cc5e9a9\",\r\n    \"trackid\": \"112345689\"\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/orders/auth/staffcarry",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"orders",
+								"auth",
+								"staffcarry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.order_finish",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2MjAzMDYsImlkIjoiNjFjNzM5MzJmMWEzNjYzYjJhZjI4NTBiIiwicm9sZSI6IjEiLCJ1c2VyX2lkIjoiYWRtaW4ifQ.7G6Co_dEz0iBt0Ss1qYBWzr2REQgc_QZ9hOvfjn0eTo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderid\": \"61c856dc0658e13c3cc5e9a9\"\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/orders/auth/finishorder",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"orders",
+								"auth",
+								"finishorder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order_cancel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2MjAzMDYsImlkIjoiNjFjNzM5MzJmMWEzNjYzYjJhZjI4NTBiIiwicm9sZSI6IjEiLCJ1c2VyX2lkIjoiYWRtaW4ifQ.7G6Co_dEz0iBt0Ss1qYBWzr2REQgc_QZ9hOvfjn0eTo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderid\": \"61c856dc0658e13c3cc5e9a9\"\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/orders/auth/cancelorder",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"orders",
+								"auth",
+								"cancelorder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "myorder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2NjMwMzMsImlkIjoiNjFjNzM5MzJmMWEzNjYzYjJhZjI4NTBiIiwicm9sZSI6IjEiLCJ1c2VyX2lkIjoiYWRtaW4ifQ.fqf-C2KbA9sk2uYBqpmUDswcuAXNnfmS_P2BsKY_6q0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userid\": \"61c856dc0658e13c3cc5e9a9\"\r\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/orders/auth/myorder",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"orders",
+								"auth",
+								"myorder"
+							]
+						},
+						"description": "ใช้ดูประวัติของตนทั้งหมด"
+					},
+					"response": []
+				},
+				{
+					"name": "fetch and filter and sort Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDA2NjMwMzMsImlkIjoiNjFjNzM5MzJmMWEzNjYzYjJhZjI4NTBiIiwicm9sZSI6IjEiLCJ1c2VyX2lkIjoiYWRtaW4ifQ.fqf-C2KbA9sk2uYBqpmUDswcuAXNnfmS_P2BsKY_6q0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain}}/go/api/v1/orders/auth/fetchdata?timestart=2021-12-26T11:34:57Z&timeend=2021-12-26T11:34:59Z&status=ชำระเงินแล้ว&pagelimit=3&pageindex=1&sort=-1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"go",
+								"api",
+								"v1",
+								"orders",
+								"auth",
+								"fetchdata"
+							],
+							"query": [
+								{
+									"key": "timestart",
+									"value": "2021-12-26T11:34:57Z",
+									"description": "ค้นหาตั้งแต่เวลา"
+								},
+								{
+									"key": "timeend",
+									"value": "2021-12-26T11:34:59Z",
+									"description": "ถึงเวลา"
+								},
+								{
+									"key": "status",
+									"value": "ชำระเงินแล้ว",
+									"description": "status"
+								},
+								{
+									"key": "pagelimit",
+									"value": "3",
+									"description": "จำนวนข้อมูลต่อ 1 หน้า"
+								},
+								{
+									"key": "pageindex",
+									"value": "1",
+									"description": "หน้าที่ขอข้อมูล"
+								},
+								{
+									"key": "sort",
+									"value": "-1",
+									"description": "เรียงตามวันที่ update"
+								},
+								{
+									"key": "sortkey",
+									"value": "_id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "มีสถานะทั้งหมด 5 อย่าคือ\r\n\r\nรอชำระ\r\n\r\nชำระเงินแล้ว\r\n\r\nรอรับสินค้า\r\n\r\nส่งสินค้าสำเร็จ\r\n\r\nยกเลิกคำสั่งซื้อ\r\n\r\n",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "domain",
+			"value": "http://localhost:7000"
+		}
+	]
+}

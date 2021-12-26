@@ -282,7 +282,7 @@ func MyOrder(c *gin.Context) {
 	var order models.Order
 	id, _ := primitive.ObjectIDFromHex(input.Orderid)
 	collection := configs.GetMongoCollection("orders")
-	result := collection.FindOne(configs.Ctx, bson.M{"_id": id}).Decode(&order)
+	result := collection.FindOne(configs.Ctx, bson.M{"userid": id}).Decode(&order)
 
 	if result != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
